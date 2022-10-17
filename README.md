@@ -18,7 +18,7 @@ There are 2 mode to run this project.
 # Setup .env
 bash development.sh docker
 
-# Spin up backend and mongo container
+# Spin up backend and mysql container
 docker compose up -d
 ```
 
