@@ -12,6 +12,54 @@ import {
 } from 'class-validator';
 import { LogicalOperator, SortOrder } from '../enum/queryCondition.enum';
 
+export class QueryDto {
+    @ApiProperty({
+        type: String,
+        description: 'Database query param key',
+        example: 'name',
+    })
+    @IsNotEmpty()
+    @IsString()
+    key: string;
+
+    @ApiProperty({
+        type: String,
+        description: 'Database query param value',
+        example: 'an action',
+    })
+    @IsNotEmpty()
+    value: string | number;
+
+    @ApiProperty({
+        type: String,
+        description: 'Database query param logical operator (AND/OR)',
+        example: 'AND',
+    })
+    @IsNotEmpty()
+    @IsEnum(LogicalOperator)
+    operator: LogicalOperator = LogicalOperator.OR;
+}
+
+export class OrderByDto {
+    @ApiProperty({
+        type: String,
+        description: 'Database orderby param key',
+        example: 'createdAt',
+    })
+    @IsNotEmpty()
+    @IsString()
+    key: string;
+
+    @ApiProperty({
+        type: String,
+        description: 'Database orderby sort direction',
+        example: 'DESC',
+    })
+    @IsNotEmpty()
+    @IsEnum(SortOrder)
+    order: SortOrder = SortOrder.ASC;
+}
+
 export class QueryFilterDto {
     @ApiProperty({
         type: Number,
@@ -33,23 +81,7 @@ export class QueryFilterDto {
     limit: number = 10;
 
     @ApiProperty({
-        type: {
-            key: {
-                type: String,
-                description: 'Database query param key',
-                example: 'name',
-            },
-            value: {
-                type: String,
-                description: 'Database query param value',
-                example: 'an action',
-            },
-            operator: {
-                type: String,
-                description: 'Database query param logical operator (AND/OR)',
-                example: 'AND',
-            },
-        },
+        type: QueryDto,
         isArray: true,
         description: 'Database query param',
     })
@@ -72,7 +104,7 @@ export class QueryFilterDto {
                 example: 'DESC',
             },
         },
-        isArray: true,
+        isArray: false,
         description: 'Database orderby query',
     })
     @IsOptional()
@@ -80,27 +112,4 @@ export class QueryFilterDto {
     @ValidateNested({ each: true })
     @Type(() => OrderByDto)
     orderBys: OrderByDto[] = [];
-}
-
-export class QueryDto {
-    @IsNotEmpty()
-    @IsString()
-    key: string;
-
-    @IsNotEmpty()
-    value: string | number;
-
-    @IsNotEmpty()
-    @IsEnum(LogicalOperator)
-    operator: LogicalOperator = LogicalOperator.OR;
-}
-
-export class OrderByDto {
-    @IsNotEmpty()
-    @IsString()
-    key: string;
-
-    @IsNotEmpty()
-    @IsEnum(SortOrder)
-    order: SortOrder = SortOrder.ASC;
 }

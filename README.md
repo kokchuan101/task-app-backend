@@ -30,10 +30,10 @@ docker compose up -d
 # Setup .env
 bash development.sh normal
 
-# Install npm packages for both frontend & backend
+# Install npm packages
 npm install
 
-# Boot up both frontend & backend
+# Start backend locally
 npm run start:dev
 ```
 
@@ -58,6 +58,28 @@ npm run seed
 npm run seed
 ```
 
+## Testing
+
+Similar, there are 2 mode to seed. Ensure that the mode correspond to setup.
+
+#### 1. Docker mode
+
+```bash
+# Enter container (alpine image doesn't have bash preinstalled)
+docker exec -it task-app-backend /bin/sh
+
+# Run test
+npm run test
+```
+
+#### 2. Normal mode
+
+```bash
+# Run test
+npm run test
+```
+
 ## Documentation
 
 - [Swagger API](http://localhost:3000/api/)
+- [Postman Collection](https://www.getpostman.com/collections/2402637c4cc965e0e3d0)
