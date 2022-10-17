@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  task-app-backend:
+    container_name: task-app-backend
+    depends_on:
+      - task-app-mysql
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/code/app
+  task-app-mysql:
+    image: mysql:5.7
+    container_name: task-app-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'task_app'
+      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  mysqldata:
