@@ -60,7 +60,7 @@ npm run seed
 
 ## Testing
 
-Similar, there are 2 mode to seed. Ensure that the mode correspond to setup.
+Similar, there are 2 mode to test. Ensure that the mode correspond to setup.
 
 #### 1. Docker mode
 
